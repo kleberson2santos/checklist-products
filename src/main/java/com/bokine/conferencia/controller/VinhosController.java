@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bokine.conferencia.java8.Conferencia;
 import com.bokine.conferencia.model.Produto;
 import com.bokine.conferencia.model.TipoVinho;
 import com.bokine.conferencia.repository.Conferencias;
@@ -23,6 +24,9 @@ public class VinhosController {
 	
 	@Autowired
 	private Conferencias conferencias;
+	
+	@Autowired
+	private Conferencia conferencia;
 	
 	@DeleteMapping("/{id}")
 	public String remover(@PathVariable Long id, RedirectAttributes attributes) {
@@ -48,6 +52,7 @@ public class VinhosController {
 		modelAndView.addObject(produto);
 		modelAndView.addObject("tipos", TipoVinho.values());
 		modelAndView.addObject("produtos", conferencias.findAll());
+		modelAndView.addObject("produtosC", conferencia.getProdutos());
 		
 		return modelAndView;
 	}
@@ -60,6 +65,8 @@ public class VinhosController {
 		}
 		
 		conferencias.save(produto);
+		conferencia.confere(conferencia.getProdutos(), conferencia.getConferidos(), produto);
+		conferencia.remove(conferencia.getProdutos(),produto.getNome());
 		
 		return new ModelAndView("redirect:/conferencia/novo");
 	}
