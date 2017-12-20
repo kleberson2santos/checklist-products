@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout-padrao}">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout-padrao}">
 <head>
 </head>
 
@@ -13,17 +12,14 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-8">
-						<h1>
-							Cadastro conferencia
-						</h1>
+						<h1>Cadastro conferencia</h1>
 					</div>
 
 					<div class="col-xs-4">
 						<div class="aw-page-header-controls">
-							<a class="btn btn-primary" th:href="@{/conferencia}">
-								<i class="fa fa-table"></i>
-
-								<span class="hidden-xs hidden-sm">Lista conferencia</span>
+							<a class="btn btn-primary" th:href="@{/conferencia}"> <i
+								class="fa fa-table"></i> <span class="hidden-xs hidden-sm">Lista
+									conferencia</span>
 							</a>
 						</div>
 					</div>
@@ -37,53 +33,44 @@
 				th:object="${produto}" th:action="@{/conferencia/novo}">
 				<div class="alert  alert-danger  alert-dismissible" role="alert"
 					th:if="${#fields.hasAnyErrors()}">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 
 					<div th:each="erro: ${#fields.detailedErrors()}">
-						<i class="fa fa-exclamation-circle"></i>
-						
-						<span th:text="${erro.message}">Mensagem erro.</span>
+						<i class="fa fa-exclamation-circle"></i> <span
+							th:text="${erro.message}">Mensagem erro.</span>
 					</div>
 				</div>
 
 				<div class="alert  alert-success"
 					th:if="${!#strings.isEmpty(mensagem)}">
-					<i class="fa fa-check-circle"></i>
-
-					<span th:text="${mensagem}">Mensagem sucesso!</span>
+					<i class="fa fa-check-circle"></i> <span th:text="${mensagem}">Mensagem
+						sucesso!</span>
 				</div>
-				
-				<input type="hidden" th:field="*{id}"/>
+
+				<input type="hidden" th:field="*{id}" />
 
 				<div class="form-group">
-					<label for="nome">Nome</label>
-
-					<input id="nome" type="text" class="form-control" 
-						th:field="*{nome}"/>
+					<label for="nome">Produto</label> <input id="nome" type="text"
+						class="form-control" th:field="*{nome}" autofocus/>
 				</div>
 
-				<div class="row">
-
-				</div>
-				
 				<div class="table-responsive">
-					<table id="tabela-produtos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<table id="tabela-produtos"
+						class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
 						<thead class="aw-table-header-solid">
 							<tr>
-								<th class="av-table-vinhos-col-codigo">Código</th>
-								<th>Nome</th>
+								<th class="av-table-vinhos-col-codigo">Id</th>
+								<th>Código de Barras</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="produto: ${produtosC}">
-								<td class="text-center"
-									th:text="${produto.id}">1</td>
-								<td>
-									<a th:href="@{/conferencia/{id}(id=${produto.id})}"
-										th:text="${produto.nome}">Carro Azul</a>
-								</td>
+								<td class="text-center" th:text="${produto.id}">1</td>
+								<td><a th:href="@{/conferencia/{id}(id=${produto.id})}"
+									th:text="${produto.nome}">Carro Azul</a></td>
 							</tr>
 							<tr th:if="${produtosC.empty}">
 								<td colspan="5">Nenhuma conferencia cadastrada</td>

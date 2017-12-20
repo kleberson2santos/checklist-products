@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +39,9 @@ public class VinhosController {
 	}
 	
 	@GetMapping
-	public ModelAndView listar() {
+	public ModelAndView listar() { //listar os conferidos
 		ModelAndView modelAndView = new ModelAndView("conferencia/lista-conferencia");
-		modelAndView.addObject("produtos", conferencias.findAll());
+		modelAndView.addObject("produtos", conferencia.getConferidos());
 		
 		return modelAndView;
 	}
@@ -54,12 +55,14 @@ public class VinhosController {
 		modelAndView.addObject("produtos", conferencias.findAll());
 		modelAndView.addObject("produtosC", conferencia.getProdutos());
 		
+		
 		return modelAndView;
 	}
 	
 	@PostMapping("/novo")
 	public ModelAndView salvar(@Valid Produto produto, BindingResult result,
-			RedirectAttributes attributes) {
+			RedirectAttributes attributes) {		
+		produto.setNome(produto.getNome().trim());
 		if (result.hasErrors()) {
 			return novo(produto);
 		}
@@ -67,6 +70,10 @@ public class VinhosController {
 		conferencias.save(produto);
 		conferencia.confere(conferencia.getProdutos(), conferencia.getConferidos(), produto);
 		conferencia.remove(conferencia.getProdutos(),produto.getNome());
+		
+		if(conferencia.getProdutos().isEmpty()) {
+			attributes.addFlashAttribute("mensagem", "Todos os produtos conferidos com sucesso!");
+		}
 		
 		return new ModelAndView("redirect:/conferencia/novo");
 	}
