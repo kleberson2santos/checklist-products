@@ -64,11 +64,14 @@
 							<tr>
 								<th class="av-table-vinhos-col-codigo">Id</th>
 								<th>Código de Barras</th>
+								<th>Produto</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="produto: ${produtosC}">
 								<td class="text-center" th:text="${produto.id}">1</td>
+								<td><a th:href="@{/conferencia/{id}(id=${produto.id})}"
+									th:text="${produto.codigoDeBarras}">0025145000U</a></td>
 								<td><a th:href="@{/conferencia/{id}(id=${produto.id})}"
 									th:text="${produto.nome}">Carro Azul</a></td>
 							</tr>

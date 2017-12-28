@@ -18,6 +18,8 @@ public class Produto {
 	
 	@NotBlank
 	private String nome;
+	@Transient
+	private String codigoDeBarras;
 	
 	@Transient
 	@Enumerated(EnumType.STRING)
@@ -73,6 +75,14 @@ public class Produto {
 		this.nome = nome;
 	}
 	
+	public String getCodigoDeBarras() {
+		return codigoDeBarras;
+	}
+
+	public void setCodigoDeBarras(String codigoDeBarras) {
+		this.codigoDeBarras = codigoDeBarras;
+	}
+
 	public TipoVinho getTipo() {
 		return tipo;
 	}
