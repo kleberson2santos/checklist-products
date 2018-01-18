@@ -1,10 +1,12 @@
 package com.bokine.conferencia.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bokine.conferencia.java8.Conferencia;
 import com.bokine.conferencia.model.Produto;
-import com.bokine.conferencia.model.TipoVinho;
 import com.bokine.conferencia.repository.Conferencias;
 
 @Controller
 @RequestMapping("/conferencia")
-public class VinhosController {
+public class ConferenciasController {
 	
 	@Autowired
 	private Conferencias conferencias;
@@ -40,6 +41,7 @@ public class VinhosController {
 	
 	@GetMapping
 	public ModelAndView listar() { //listar os conferidos
+		System.out.println("CHAMOU O METODO LISTAR");
 		ModelAndView modelAndView = new ModelAndView("conferencia/lista-conferencia");
 		modelAndView.addObject("produtos", conferencia.getConferidos());
 		
@@ -48,11 +50,12 @@ public class VinhosController {
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Produto produto) {
+		System.out.println("CHAMOU O METODO NOVO");
 		ModelAndView modelAndView = new ModelAndView("conferencia/cadastro-conferencia");
 		
 		modelAndView.addObject(produto);
-		modelAndView.addObject("tipos", TipoVinho.values());
-		modelAndView.addObject("produtos", conferencias.findAll());
+		//modelAndView.addObject("tipos", TipoVinho.values());
+		//modelAndView.addObject("produtos", conferencias.findAll());
 		modelAndView.addObject("produtosC", conferencia.getProdutos());
 		
 		
@@ -67,7 +70,7 @@ public class VinhosController {
 			return novo(produto);
 		}
 		
-		conferencias.save(produto);
+		//conferencias.save(produto);
 		conferencia.confere(conferencia.getProdutos(), conferencia.getConferidos(), produto);
 		conferencia.remove(conferencia.getProdutos(),produto.getNome());
 		
