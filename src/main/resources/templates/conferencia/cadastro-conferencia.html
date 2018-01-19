@@ -69,13 +69,13 @@
 						</thead>
 						<tbody>
 							<tr th:each="produto: ${produtosC}">
-								<td><a th:href="@{/conferencia/{id}(id=${produto.id})}"
+								<td><a href="#"
 									th:text="${produto.codigoDeBarras}">0025145000U</a></td>
-								<td><a th:href="@{/conferencia/{id}(id=${produto.id})}"
+								<td><a href="#"
 									th:text="${produto.nome}">Carro Azul</a></td>
 							</tr>
 							<tr th:if="${produtosC.empty}">
-								<td colspan="5">Nenhuma conferencia cadastrada</td>
+								<td colspan="5"><a href="#">Nenhuma conferencia cadastrada</a></td>
 							</tr>
 						</tbody>
 					</table>
